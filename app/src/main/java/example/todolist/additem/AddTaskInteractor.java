@@ -20,7 +20,7 @@ public class AddTaskInteractor implements AddTaskContract.Interactor {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 listener.onFinished(true);
-                if(databaseError != null){
+                if (databaseError != null) {
                     Log.e(TAG, "onComplete: ", databaseError.toException());
                 }
             }

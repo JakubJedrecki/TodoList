@@ -9,7 +9,8 @@ public class Task {
     private String description;
     private String date;
 
-    public Task() {}
+    public Task() {
+    }
 
     public Task(String id, String description, String date) {
         this.id = id;

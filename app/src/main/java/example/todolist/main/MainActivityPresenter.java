@@ -20,7 +20,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
 
     @Override
     public void onResume() {
-        if(mainView != null){
+        if (mainView != null) {
             mainView.showProgressBar(true);
         }
 
@@ -29,7 +29,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
 
     @Override
     public void onFinished(List<Task> tasks) {
-        if(mainView != null){
+        if (mainView != null) {
             mainView.showTasks(tasks);
             mainView.showProgressBar(false);
         }
@@ -41,5 +41,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
         database.child("Tasks").child(task.getId()).removeValue();
     }
 
-    public MainActivityContract.View getMainView() { return mainView; }
+    public MainActivityContract.View getMainView() {
+        return mainView;
+    }
 }

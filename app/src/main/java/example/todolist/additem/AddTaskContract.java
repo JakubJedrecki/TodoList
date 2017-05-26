@@ -4,17 +4,19 @@ import example.todolist.models.Task;
 
 public interface AddTaskContract {
 
-    interface View{
+    interface View {
         void finishActivity();
+
         void showMessage(int id);
     }
+
     interface Presenter {
         void saveTask(String description);
     }
 
     interface Interactor {
 
-        interface onFinishedListener{
+        interface onFinishedListener {
             void onFinished(boolean succeeded);
         }
 

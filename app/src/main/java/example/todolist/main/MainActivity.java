@@ -20,7 +20,7 @@ import example.todolist.adapters.TaskListAdapter;
 import example.todolist.additem.AddTaskActivity;
 import example.todolist.models.Task;
 
-public class MainActivity extends AppCompatActivity implements MainActivityContract.View, TaskListAdapter.ClickListener{
+public class MainActivity extends AppCompatActivity implements MainActivityContract.View, TaskListAdapter.ClickListener {
 
     @BindView(R.id.fabAddTask) FloatingActionButton addTask;
     @BindView(R.id.tasksRecyclerView) RecyclerView tasksRecyclerView;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     @Override
     public void showProgressBar(boolean show) {
-        if(show){
+        if (show) {
             loadingProgressBar.setVisibility(View.VISIBLE);
         } else {
             loadingProgressBar.setVisibility(View.GONE);
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     }
 
     @OnClick(R.id.fabAddTask)
-    public void goToAddTask(){
+    public void goToAddTask() {
         startActivity(new Intent(this, AddTaskActivity.class));
     }
 

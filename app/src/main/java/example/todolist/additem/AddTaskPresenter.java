@@ -6,7 +6,7 @@ import java.util.UUID;
 import example.todolist.R;
 import example.todolist.models.Task;
 
-public class AddTaskPresenter implements AddTaskContract.Presenter, AddTaskContract.Interactor.onFinishedListener{
+public class AddTaskPresenter implements AddTaskContract.Presenter, AddTaskContract.Interactor.onFinishedListener {
 
     private AddTaskContract.View addTaskView;
     private AddTaskContract.Interactor addTaskInteractor;
@@ -19,7 +19,7 @@ public class AddTaskPresenter implements AddTaskContract.Presenter, AddTaskContr
     @Override
     public void saveTask(String description) {
         String taskUUID = UUID.randomUUID().toString();
-        if(!description.equals("") && !description.isEmpty()) {
+        if (!description.equals("") && !description.isEmpty()) {
             Task task = new Task(taskUUID, description, new Date().toString());
             addTaskInteractor.saveTaskToDB(this, task);
         } else {

@@ -13,7 +13,7 @@ import java.util.List;
 
 import example.todolist.models.Task;
 
-public class MainActivityInteractor implements MainActivityContract.Interactor{
+public class MainActivityInteractor implements MainActivityContract.Interactor {
 
     private DatabaseReference database;
 
@@ -27,7 +27,7 @@ public class MainActivityInteractor implements MainActivityContract.Interactor{
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 List<Task> tasks = new ArrayList<>();
 
-                for(DataSnapshot child : children) {
+                for (DataSnapshot child : children) {
                     Task task = child.getValue(Task.class);
                     tasks.add(task);
                 }

@@ -41,22 +41,22 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final TaskListAdapter.ViewHolder holder, final int position) {
-        if(tasks != null){
+        if (tasks != null) {
             holder.taskDescription.setText(tasks.get(position).getDescription());
             holder.taskComplete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     holder.taskComplete.setEnabled(false);
-                        Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_out_right);
-                        holder.taskCardView.startAnimation(animation);
-                        holder.taskComplete.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                clickListener.itemClicked(tasks.get(holder.getLayoutPosition()));
-                                holder.taskComplete.toggle();
-                                holder.taskComplete.setEnabled(true);
-                            }
-                        }, 300);
+                    Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_out_right);
+                    holder.taskCardView.startAnimation(animation);
+                    holder.taskComplete.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            clickListener.itemClicked(tasks.get(holder.getLayoutPosition()));
+                            holder.taskComplete.toggle();
+                            holder.taskComplete.setEnabled(true);
+                        }
+                    }, 300);
                 }
             });
             setAnimation(holder.itemView, position);
@@ -68,20 +68,23 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
         return tasks.size();
     }
 
-    public interface ClickListener{
+    public interface ClickListener {
         void itemClicked(Task task);
     }
 
-    public void replaceData(List<Task> tasks){
+    public void replaceData(List<Task> tasks) {
         this.tasks = tasks;
         notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.taskCardView) CardView taskCardView;
-        @BindView(R.id.taskDescription) TextView taskDescription;
-        @BindView(R.id.taskCompleteCB) CheckBox taskComplete;
+        @BindView(R.id.taskCardView)
+        CardView taskCardView;
+        @BindView(R.id.taskDescription)
+        TextView taskDescription;
+        @BindView(R.id.taskCompleteCB)
+        CheckBox taskComplete;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -91,12 +94,11 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
-            if(clickListener != null){
+            if (clickListener != null) {
             }
         }
 
-        public void clearAnimation()
-        {
+        public void clearAnimation() {
             taskCardView.clearAnimation();
         }
     }
@@ -107,10 +109,8 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
         holder.clearAnimation();
     }
 
-    private void setAnimation(View viewToAnimate, int position)
-    {
-        if (position > lastPosition)
-        {
+    private void setAnimation(View viewToAnimate, int position) {
+        if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left);
             animation.setInterpolator(new AccelerateDecelerateInterpolator());
             animation.setStartOffset(500);
@@ -119,7 +119,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
         }
     }
 
-    public void updateLastPosition(){
-        lastPosition --;
+    public void updateLastPosition() {
+        lastPosition--;
     }
 }
