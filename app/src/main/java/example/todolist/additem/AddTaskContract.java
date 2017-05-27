@@ -6,7 +6,6 @@ public interface AddTaskContract {
 
     interface View {
         void finishActivity();
-
         void showMessage(int id);
     }
 

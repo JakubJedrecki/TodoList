@@ -1,14 +1,16 @@
 package example.todolist.additem;
 
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import example.todolist.R;
+import example.todolist.util.Utils;
 
 public class AddTaskActivity extends AppCompatActivity implements AddTaskContract.View {
 
@@ -21,7 +23,6 @@ public class AddTaskActivity extends AppCompatActivity implements AddTaskContrac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
         ButterKnife.bind(this);
-
         presenter = new AddTaskPresenter(this, new AddTaskInteractor());
     }
 
@@ -32,7 +33,11 @@ public class AddTaskActivity extends AppCompatActivity implements AddTaskContrac
 
     @OnClick(R.id.SaveButton)
     public void save() {
-        presenter.saveTask(taskDescription.getText().toString());
+        if (Utils.checkInternetConnection((ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE))) {
+            presenter.saveTask(taskDescription.getText().toString());
+        } else {
+            showMessage(R.string.check_internet_con);
+        }
     }
 
     @Override
@@ -42,6 +47,6 @@ public class AddTaskActivity extends AppCompatActivity implements AddTaskContrac
 
     @Override
     public void showMessage(int id) {
-        Toast.makeText(this, getResources().getString(id), Toast.LENGTH_LONG).show();
+        Snackbar.make(findViewById(android.R.id.content), getString(id), Snackbar.LENGTH_LONG).show();
     }
 }

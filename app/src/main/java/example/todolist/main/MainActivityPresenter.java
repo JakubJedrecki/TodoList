@@ -19,7 +19,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
     }
 
     @Override
-    public void onResume() {
+    public void getData() {
         if (mainView != null) {
             mainView.showProgressBar(true);
         }

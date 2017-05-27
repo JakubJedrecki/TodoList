@@ -34,7 +34,7 @@ public class MainActivityPresenterTest {
 
     @Test
     public void checkIfShowProgressBar(){
-        presenter.onResume();
+        presenter.getData();
         verify(mainView, times(1)).showProgressBar(true);
     }
 

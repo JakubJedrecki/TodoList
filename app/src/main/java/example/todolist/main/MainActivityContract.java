@@ -8,12 +8,12 @@ public interface MainActivityContract {
 
     interface View {
         void showTasks(List<Task> tasks);
-
         void showProgressBar(boolean show);
+        void showMessage(int id);
     }
 
     interface Presenter {
-        void onResume();
+        void getData();
 
         void onCompleteTaskClick(Task task);
     }

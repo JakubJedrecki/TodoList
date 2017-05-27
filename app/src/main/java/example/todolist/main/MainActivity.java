@@ -1,8 +1,10 @@
 package example.todolist.main;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +21,7 @@ import example.todolist.R;
 import example.todolist.adapters.TaskListAdapter;
 import example.todolist.additem.AddTaskActivity;
 import example.todolist.models.Task;
+import example.todolist.util.Utils;
 
 public class MainActivity extends AppCompatActivity implements MainActivityContract.View, TaskListAdapter.ClickListener {
 
@@ -47,7 +50,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.onResume();
+        if (Utils.checkInternetConnection((ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE))) {
+            presenter.getData();
+        } else {
+            showMessage(R.string.check_internet_con);
+        }
     }
 
     @Override
@@ -71,7 +78,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     @Override
     public void itemClicked(Task task) {
-        presenter.onCompleteTaskClick(task);
-        taskListAdapter.updateLastPosition();
+        if(Utils.checkInternetConnection((ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE))) {
+            presenter.onCompleteTaskClick(task);
+            taskListAdapter.updateLastPosition();
+        } else {
+            showMessage(R.string.check_internet_con);
+        }
+    }
+
+    @Override
+    public void showMessage(int id) {
+        Snackbar.make(findViewById(android.R.id.content), getString(id), Snackbar.LENGTH_LONG).show();
     }
 }
