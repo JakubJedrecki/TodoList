@@ -5,6 +5,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
+import example.todolist.adapters.TaskListAdapter;
 import example.todolist.models.Task;
 
 public class MainActivityPresenter implements MainActivityContract.Presenter, MainActivityContract.Interactor.OnFinishedListener {
@@ -16,6 +17,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
     public MainActivityPresenter(MainActivityContract.View mainView, MainActivityInteractor mainActivityInteractor) {
         this.mainView = mainView;
         this.mainActivityInteractor = mainActivityInteractor;
+        database = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -27,17 +29,21 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
         mainActivityInteractor.getTasks(this);
     }
 
+    public void onResume(List<Task> tasks, TaskListAdapter adapter){
+        database.child("Tasks").addChildEventListener(mainActivityInteractor.setChildEventListener(tasks, adapter));
+    }
+
     @Override
     public void onFinished(List<Task> tasks) {
         if (mainView != null) {
             mainView.showTasks(tasks);
             mainView.showProgressBar(false);
+            //TODO: dopiero tutaj zarejestrowac listener
         }
     }
 
     @Override
     public void onCompleteTaskClick(Task task) {
-        database = FirebaseDatabase.getInstance().getReference();
         database.child("Tasks").child(task.getId()).removeValue();
     }
 

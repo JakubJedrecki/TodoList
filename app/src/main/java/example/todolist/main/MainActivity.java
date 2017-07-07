@@ -45,13 +45,18 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         taskListAdapter = new TaskListAdapter(tasks, this, this);
         tasksRecyclerView.setLayoutManager(llm);
         tasksRecyclerView.setAdapter(taskListAdapter);
+        if (Utils.checkInternetConnection((ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE))) {
+            presenter.getData();
+        } else {
+            showMessage(R.string.check_internet_con);
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         if (Utils.checkInternetConnection((ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE))) {
-            presenter.getData();
+            presenter.onResume(tasks, taskListAdapter);
         } else {
             showMessage(R.string.check_internet_con);
         }
