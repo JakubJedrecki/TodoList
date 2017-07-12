@@ -13,6 +13,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
     private MainActivityContract.View mainView;
     private MainActivityInteractor mainActivityInteractor;
     private DatabaseReference database;
+    private TaskListAdapter taskListAdapter;
 
     public MainActivityPresenter(MainActivityContract.View mainView, MainActivityInteractor mainActivityInteractor) {
         this.mainView = mainView;
@@ -21,7 +22,8 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
     }
 
     @Override
-    public void getData() {
+    public void getData(TaskListAdapter taskListAdapter) {
+        this.taskListAdapter = taskListAdapter;
         if (mainView != null) {
             mainView.showProgressBar(true);
         }
@@ -29,7 +31,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
         mainActivityInteractor.getTasks(this);
     }
 
-    public void onResume(List<Task> tasks, TaskListAdapter adapter){
+    public void registerChildEventListener(List<Task> tasks, TaskListAdapter adapter){
         database.child("Tasks").addChildEventListener(mainActivityInteractor.setChildEventListener(tasks, adapter));
     }
 
@@ -39,6 +41,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
             mainView.showTasks(tasks);
             mainView.showProgressBar(false);
             //TODO: dopiero tutaj zarejestrowac listener
+            registerChildEventListener(tasks, taskListAdapter);
         }
     }
 

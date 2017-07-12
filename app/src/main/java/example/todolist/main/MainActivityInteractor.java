@@ -24,26 +24,25 @@ public class MainActivityInteractor implements MainActivityContract.Interactor {
     @Override
     public void getTasks(final OnFinishedListener listener) {
 
-//        database.child("Tasks").orderByChild("date").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-//                List<Task> tasks = new ArrayList<>();
-//
-//                for (DataSnapshot child : children) {
-//                    Task task = child.getValue(Task.class);
-//                    tasks.add(task);
-//                }
-//                Collections.reverse(tasks);
-//                listener.onFinished(tasks);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.e("MainInteractor", "onCancelled: " + databaseError.getMessage());
-//            }
-//        });
+        database.child("Tasks").orderByChild("date").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                List<Task> tasks = new ArrayList<>();
 
+                for (DataSnapshot child : children) {
+                    Task task = child.getValue(Task.class);
+                    tasks.add(task);
+                }
+                Collections.reverse(tasks);
+                listener.onFinished(tasks);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("MainInteractor", "onCancelled: " + databaseError.getMessage());
+            }
+        });
     }
 
     public ChildEventListener setChildEventListener(final List<Task> tasks, final TaskListAdapter adapter){
@@ -63,9 +62,9 @@ public class MainActivityInteractor implements MainActivityContract.Interactor {
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Task toRemove = dataSnapshot.getValue(Task.class);
-                for(Task task : tasks){
-                    if(task.getId().equals(toRemove.getId())){
-                        tasks.remove(task);
+                for(int i=0; i<tasks.size(); i++){
+                    if(tasks.get(i).getId().equals(toRemove.getId())){
+                        tasks.remove(tasks.get(i));
                     }
                 }
                 adapter.replaceData(tasks);

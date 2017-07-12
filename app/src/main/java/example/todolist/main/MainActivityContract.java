@@ -2,6 +2,7 @@ package example.todolist.main;
 
 import java.util.List;
 
+import example.todolist.adapters.TaskListAdapter;
 import example.todolist.models.Task;
 
 public interface MainActivityContract {
@@ -13,7 +14,7 @@ public interface MainActivityContract {
     }
 
     interface Presenter {
-        void getData();
+        void getData(TaskListAdapter taskListAdapter);
 
         void onCompleteTaskClick(Task task);
     }
