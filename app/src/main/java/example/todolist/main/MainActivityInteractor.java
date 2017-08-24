@@ -1,7 +1,11 @@
 package example.todolist.main;
 
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,14 +18,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import example.todolist.R;
 import example.todolist.adapters.TaskListAdapter;
 import example.todolist.models.Task;
+import example.todolist.models.viewholders.TaskHolder;
 
 public class MainActivityInteractor implements MainActivityContract.Interactor {
 
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
-    //TODO: adapter do firebaseui
+    public DatabaseReference getDBReference(){
+        return database;
+    }
 
     @Override
     public void getTasks(final OnFinishedListener listener) {
@@ -82,5 +90,9 @@ public class MainActivityInteractor implements MainActivityContract.Interactor {
                 Log.e("MainInteractor", "onCancelled: " + databaseError.getMessage());
             }
         };
+    }
+
+    public void removeTask(Task task) {
+        database.child("Tasks").child(task.getId()).removeValue();
     }
 }

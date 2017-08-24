@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,7 @@ import example.todolist.R;
 import example.todolist.adapters.TaskListAdapter;
 import example.todolist.additem.AddTaskActivity;
 import example.todolist.models.Task;
+import example.todolist.models.viewholders.TaskHolder;
 import example.todolist.util.Utils;
 
 public class MainActivity extends AppCompatActivity implements MainActivityContract.View, TaskListAdapter.ClickListener {
@@ -91,4 +94,5 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     public void showMessage(int id) {
         Snackbar.make(findViewById(android.R.id.content), getString(id), Snackbar.LENGTH_LONG).show();
     }
+
 }
