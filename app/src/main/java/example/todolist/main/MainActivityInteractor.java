@@ -21,6 +21,8 @@ public class MainActivityInteractor implements MainActivityContract.Interactor {
 
     private DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
+    //TODO: adapter do firebaseui
+
     @Override
     public void getTasks(final OnFinishedListener listener) {
 

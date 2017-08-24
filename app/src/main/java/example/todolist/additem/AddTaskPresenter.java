@@ -1,6 +1,11 @@
 package example.todolist.additem;
 
+import android.icu.text.SimpleDateFormat;
+
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 import example.todolist.R;
@@ -18,9 +23,12 @@ public class AddTaskPresenter implements AddTaskContract.Presenter, AddTaskContr
 
     @Override
     public void saveTask(String description) {
-        String taskUUID = UUID.randomUUID().toString();
         if (!description.equals("") && !description.isEmpty()) {
-            Task task = new Task(taskUUID, description, new Date().toString());
+
+            DateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.UK);
+            String date = sdf.format(Calendar.getInstance().getTime());
+
+            Task task = new Task(description, date);
             addTaskInteractor.saveTaskToDB(this, task);
         } else {
             addTaskView.showMessage(R.string.empty_task_error);

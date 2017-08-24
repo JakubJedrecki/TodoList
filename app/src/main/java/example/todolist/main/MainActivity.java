@@ -41,9 +41,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         presenter = new MainActivityPresenter(this, new MainActivityInteractor());
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
-        tasks = new ArrayList<>();
-        taskListAdapter = new TaskListAdapter(tasks, this, this);
         tasksRecyclerView.setLayoutManager(llm);
+        tasks = new ArrayList<>();
+
+        taskListAdapter = new TaskListAdapter(tasks, this, this);
         tasksRecyclerView.setAdapter(taskListAdapter);
         if (Utils.checkInternetConnection((ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE))) {
             presenter.getData(taskListAdapter);
@@ -55,11 +56,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     @Override
     protected void onResume() {
         super.onResume();
-//        if (Utils.checkInternetConnection((ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE))) {
-//            //presenter.onResume(tasks, taskListAdapter);
-//        } else {
-//            showMessage(R.string.check_internet_con);
-//        }
     }
 
     @Override

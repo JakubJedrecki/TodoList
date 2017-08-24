@@ -8,13 +8,11 @@ public class Task {
     private String id;
     private String description;
     private String date;
-    //TODO: zmienic date na timestamp
 
     public Task() {
     }
 
-    public Task(String id, String description, String date) {
-        this.id = id;
+    public Task(String description, String date) {
         this.description = description;
         this.date = date;
     }
