@@ -16,6 +16,7 @@ public class AddTaskInteractor implements AddTaskContract.Interactor {
     @Override
     public void saveTaskToDB(final onFinishedListener listener, Task task) {
         database = FirebaseDatabase.getInstance().getReference();
+        task.setId(database.push().getKey());
         database.child("Tasks").child(task.getId()).setValue(task, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {

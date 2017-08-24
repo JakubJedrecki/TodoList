@@ -40,7 +40,6 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
         if (mainView != null) {
             mainView.showTasks(tasks);
             mainView.showProgressBar(false);
-            //TODO: dopiero tutaj zarejestrowac listener
             registerChildEventListener(tasks, taskListAdapter);
         }
     }
