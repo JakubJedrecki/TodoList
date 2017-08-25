@@ -34,15 +34,15 @@ public class MainActivityPresenterTest {
 
     @Test
     public void checkIfShowProgressBar(){
-        presenter.getData();
+        //presenter.getData();
         verify(mainView, times(1)).showProgressBar(true);
     }
 
     @Test
     public void checkIfItemsArePassedToView(){
         List<Task> tasks = new ArrayList<Task>() {{
-            new Task("1", "test 1", "26.05.2017");
-            new Task("2", "test 2", "26.05.2017");
+            new Task("test 1", "26.05.2017");
+            new Task("test 2", "26.05.2017");
         }};
 
         presenter.onFinished(tasks);

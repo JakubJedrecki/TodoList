@@ -65,7 +65,7 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
                 Task.class,
                 R.layout.item_card_view,
                 TaskHolder.class,
-                mainActivityInteractor.getDBReference()) {
+                database.child("Tasks")) {
 
             @Override
             protected void populateViewHolder(TaskHolder viewHolder, Task model, int position) {
@@ -74,14 +74,17 @@ public class MainActivityPresenter implements MainActivityContract.Presenter, Ma
 
             @Override
             public TaskHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                TaskHolder taskHolder = super.onCreateViewHolder(parent, viewType);
-                taskHolder.setOnClickListener(new TaskHolder.ClickListener() {
+                TaskHolder viewHolder = super.onCreateViewHolder(parent, viewType);
+                viewHolder.setOnClickListener(new TaskHolder.ClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-
+                        mainView.showMessage(R.string.click_test);
                     }
                 });
+                return viewHolder;
             }
         };
+
+        return mAdapter;
     }
 }

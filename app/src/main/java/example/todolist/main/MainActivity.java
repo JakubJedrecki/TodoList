@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     private MainActivityPresenter presenter;
     private TaskListAdapter taskListAdapter;
     private List<Task> tasks;
+    private FirebaseRecyclerAdapter<Task, TaskHolder> mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         tasks = new ArrayList<>();
 
         taskListAdapter = new TaskListAdapter(tasks, this, this);
-        tasksRecyclerView.setAdapter(taskListAdapter);
+        //tasksRecyclerView.setAdapter(taskListAdapter);
+        mAdapter = presenter.createFirebaseAdapter();
+        tasksRecyclerView.setAdapter(mAdapter);
         if (Utils.checkInternetConnection((ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE))) {
             presenter.getData(taskListAdapter);
         } else {
@@ -59,6 +62,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     @Override
     protected void onResume() {
         super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAdapter.cleanup();
     }
 
     @Override
